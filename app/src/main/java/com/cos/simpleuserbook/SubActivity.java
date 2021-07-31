@@ -19,21 +19,17 @@ public class SubActivity extends AppCompatActivity implements InitSetting {
     private static final String TAG = "SubActivity";
 
     private SubActivity subActivity = this;
-    private MainActivity mContext;
-    private UserAdaptor userAdaptor;
-    private RecyclerView rvUsers;
+
 
     private TextView tvNameSub;
     private TextView tvTelSub;
     private TextView tvHomePageSub;
-    private Button btnUpdate;
-    private Button btnDel;
+    //private Button btnUpdate;
+    //private Button btnDel;
     private User user;
     private int index;
 
-    public SubActivity(UserAdaptor userAdaptor){
-        this.userAdaptor = userAdaptor;
-    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,17 +72,14 @@ public class SubActivity extends AppCompatActivity implements InitSetting {
             );
             startActivity(intent);
         });
-        btnUpdate.setOnClickListener(v -> {
-            Log.d(TAG, "initListener: btnUpdate :  클릭됨");
-            Log.d(TAG, "initListener: index : " + index);
-
-            User updateUser = new User("spin", "01025807410", "https://www.instagram.com/");
-            updateItem(updateUser);
-            userAdaptor.updateItem(index, updateUser);
-        });
-        btnDel.setOnClickListener(v -> {
-            Log.d(TAG, "initListener: btnDel :  클릭됨");
-        });
+//        btnUpdate.setOnClickListener(v -> {
+//            Log.d(TAG, "initListener: btnUpdate :  클릭됨");
+//
+//
+//        });
+//        btnDel.setOnClickListener(v -> {
+//            Log.d(TAG, "initListener: btnDel :  클릭됨");
+//        });
     }
 
     @Override
@@ -101,12 +94,12 @@ public class SubActivity extends AppCompatActivity implements InitSetting {
         tvNameSub = findViewById(R.id.tvNameSub);
         tvTelSub = findViewById(R.id.tvTelSub);
         tvHomePageSub = findViewById(R.id.tvHomePageSub);
-        btnUpdate = findViewById(R.id.btnUpdate);
-        btnDel = findViewById(R.id.btnDel);
+        //btnUpdate = findViewById(R.id.btnUpdate);
+        //btnDel = findViewById(R.id.btnDel);
     }
 
     @Override
     public void initAdaptor() {
-       rvUsers.setAdapter(userAdaptor);
+
     }
 }

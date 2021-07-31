@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cos.simpleuserbook.MainActivity;
@@ -42,24 +41,26 @@ public class UserAdaptor extends RecyclerView.Adapter<UserAdaptor.MyViewHolder>{
     public void addItem(User user){
         this.users.add(user);
         notifyDataSetChanged();
-        // 아직 안 끝남
+        mContext.mRvScroll();
     }
 
     // 수정
     public void updateItem(int index, User user){
-        //User u = users.get(index);
+        User u = users.get(index);
         Log.d(TAG, "updateItem: index: " + index);
         Log.d(TAG, "adaptor updateItem: " + user.getName());
 
-//        u.setName(user.getName());
-//        u.setTel(user.getTel());
-//        u.setHomePage(user.getHomePage());
+        u.setName(user.getName());
+        u.setTel(user.getTel());
+        u.setHomePage(user.getHomePage());
+        notifyDataSetChanged();
     }
 
     // 삭제
     public void removeItem(int index){
         users.remove(index);
         notifyDataSetChanged();
+        Log.d(TAG, "removeItem: size : " + users.size());
     }
 
     // 데이터 가져오기
@@ -73,6 +74,7 @@ public class UserAdaptor extends RecyclerView.Adapter<UserAdaptor.MyViewHolder>{
         LayoutInflater layoutInflater = // xml 을 메모리에 띄워주는 클래스
                 (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE); // 리사이클러 뷰의 모든 것이 여기 담김
         View view = layoutInflater.inflate(R.layout.user_list_item, parent, false);
+
         return new MyViewHolder(view);
     }
 
@@ -89,6 +91,11 @@ public class UserAdaptor extends RecyclerView.Adapter<UserAdaptor.MyViewHolder>{
             intent.putExtra("index", position);
             intent.putExtra("user", getUser(position));
             mContext.startActivity(intent);
+        });
+        holder.itemView.setOnLongClickListener(v -> {
+            Log.d(TAG, "onBindViewHolder: setOnLongClickListener");
+            updateItem(position, new User("spin" , "01022229999", "https://www.instagram.com/"));
+            return true;
         });
     }
 
