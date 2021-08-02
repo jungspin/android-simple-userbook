@@ -40,6 +40,7 @@ public class SubActivity extends AppCompatActivity implements InitSetting {
         Intent intent = getIntent();
         index = (int) intent.getIntExtra("index", index);
         user = (User) intent.getSerializableExtra("user");
+
         Log.d(TAG, "onCreate: name : " + user.getName());
         Log.d(TAG, "onCreate: index : " + index);
 

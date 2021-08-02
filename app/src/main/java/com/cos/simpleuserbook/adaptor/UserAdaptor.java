@@ -14,6 +14,7 @@ import com.cos.simpleuserbook.MainActivity;
 import com.cos.simpleuserbook.R;
 import com.cos.simpleuserbook.SubActivity;
 import com.cos.simpleuserbook.model.User;
+import com.cos.simpleuserbook.util.IntentFlagSetting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class UserAdaptor extends RecyclerView.Adapter<UserAdaptor.MyViewHolder>{
 
     private MainActivity mContext;
     private UserAdaptor userAdaptor = this;
+    private IntentFlagSetting intentFlagSetting;
 
     public UserAdaptor(MainActivity mContext){
         this.mContext = mContext;
@@ -88,8 +90,11 @@ public class UserAdaptor extends RecyclerView.Adapter<UserAdaptor.MyViewHolder>{
                     mContext,
                     SubActivity.class
             );
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // 이 intent 만 이렇게 동작한다. -> 함수 셋팅 best
+
             intent.putExtra("index", position);
             intent.putExtra("user", getUser(position));
+
             mContext.startActivity(intent);
         });
         holder.itemView.setOnLongClickListener(v -> {

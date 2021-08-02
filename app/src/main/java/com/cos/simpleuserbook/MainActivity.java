@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -13,6 +14,7 @@ import com.cos.simpleuserbook.model.User;
 import com.cos.simpleuserbook.provider.UserProvider;
 import com.cos.simpleuserbook.util.InitSetting;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements InitSetting {
 
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements InitSetting {
     private RecyclerView.LayoutManager layoutManager;
     private UserAdaptor userAdaptor;
     private FloatingActionButton fabAdd;
+    private NavigationView nav;
 
 
     @Override
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements InitSetting {
     public void init() {
         rvUsers = findViewById(R.id.rvUsers);
         fabAdd = findViewById(R.id.fabAdd);
+        nav = findViewById(R.id.nav);
     }
 
     @Override
@@ -67,6 +71,35 @@ public class MainActivity extends AppCompatActivity implements InitSetting {
                 userAdaptor.removeItem(index);
             }
         }).attachToRecyclerView(rvUsers);
+
+        // nav!!!!! 나중에 핼퍼클래스 배우면 수정해야됨!!!!!!!
+        nav.setNavigationItemSelectedListener(item -> {
+            Log.d(TAG, "setNavigationItemSelectedListener: " + item.getTitle());
+
+            switch (item.getItemId()){
+                case R.id.navMain:
+                    Log.d(TAG, "item.getItemId(): "+ item.getItemId());
+                    Intent intent = new Intent(
+                            MainActivity.this, // 내화면에서 내화면 가기
+                            MainActivity.class
+                    );
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    break;
+                case R.id.navLogin:
+                    Log.d(TAG, "item.getItemId(): "+ item.getItemId());
+                    Intent intent2 = new Intent(
+                            MainActivity.this, // 내화면에서 내화면 가기
+                            LoginActivity.class
+                    );
+                    intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent2);
+                    break;
+                default:
+                    break;
+            }
+            return true;
+        });
     }
 
     @Override
